@@ -1,0 +1,28 @@
+{
+  "name": "calp-bot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A Discord bot for CALP Community",
+  "type": "module",
+  "engines": {
+    "node": ">=22.23.2 <27"
+  },
+  "scripts": {
+    "dev": "spraxium dev",
+    "build": "spraxium build",
+    "start": "spraxium start"
+  },
+  "dependencies": {
+    "@spraxium/common": "^0.3.0",
+    "@spraxium/core": "^0.3.0",
+    "@spraxium/env": "^0.3.0",
+    "@spraxium/logger": "^0.3.0",
+    "discord.js": "^14.27.0"
+  },
+  "devDependencies": {
+    "@spraxium/cli": "^0.4.0",
+    "@types/node": "^26.6.4",
+    "tsdown": "^0.23.0",
+    "typescript": "^7.0.2"
+  }
+}

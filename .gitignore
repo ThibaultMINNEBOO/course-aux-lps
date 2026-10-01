@@ -1,0 +1,6 @@
+.spraxium/
+dist/
+output/
+node_modules/
+.env
+*.log

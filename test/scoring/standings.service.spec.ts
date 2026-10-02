@@ -26,6 +26,7 @@ describe('StandingsService', () => {
   it('ranks season entries with ladder progress, bonuses and daily delta', async () => {
     const findMany = vi.fn().mockResolvedValue([
       seasonEntry({
+        id: 'entry-a',
         player: { gameName: 'Alpha', discordId: 'a' },
         currentLp: 1460,
         currentLeaguePoints: 60,
@@ -54,6 +55,7 @@ describe('StandingsService', () => {
       expect.objectContaining({ place: 1, discordId: 'b', score: 80, dailyDelta: 80 }),
       expect.objectContaining({
         place: 2,
+        entryId: 'entry-a',
         discordId: 'a',
         score: 60,
         dailyDelta: 20,

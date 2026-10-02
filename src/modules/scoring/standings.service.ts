@@ -5,6 +5,7 @@ import { formatRank } from '../riot/rank';
 import { type Rankable, type Ranked, rankStandings } from './standings';
 
 export interface SeasonStandingRow extends Rankable {
+  entryId: string;
   discordId: string;
   dailyDelta: number;
   rankLabel: string;
@@ -42,6 +43,7 @@ export class StandingsService {
             ? { tier: entry.currentTier, rank: entry.currentDivision, leaguePoints: entry.currentLeaguePoints }
             : null;
         return {
+          entryId: entry.id,
           name: entry.player.gameName,
           discordId: entry.player.discordId,
           score,

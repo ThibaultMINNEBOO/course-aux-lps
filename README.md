@@ -65,6 +65,7 @@ Les commandes de modération sont réservées aux membres ayant la permission **
 | `/recap apercu` | Modération | Prévisualise le récap du jour (visible uniquement par toi) |
 | `/classement [evenement]` | Tous | Classement paginé de la saison ou d'un évènement |
 | `/profil [membre]` | Tous | Progression d'un joueur |
+| `/aide` | Tous | Explique la compétition et les commandes (section modération visible uniquement par la modération) |
 
 ## Règles de calcul
 
@@ -103,5 +104,6 @@ src/
     ├── scoring/            /points, calcul des classements
     ├── sync/               Synchronisation des rangs (toutes les 15 min)
     ├── leaderboard/        /classement, /profil, pagination
+    ├── help/               /aide
     └── recap/              Récap de 21h, clôture des saisons et évènements, /recap
 ```

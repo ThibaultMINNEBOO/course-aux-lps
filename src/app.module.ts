@@ -3,6 +3,7 @@ import { ComponentsModule } from '@spraxium/components';
 import { ScheduleModule } from '@spraxium/schedule';
 import { CompetitionModule } from './modules/competition/competition.module';
 import { DatabaseModule } from './modules/database/database.module';
+import { HelpModule } from './modules/help/help.module';
 import { LeaderboardModule } from './modules/leaderboard/leaderboard.module';
 import { PlayersModule } from './modules/players/players.module';
 import { RecapModule } from './modules/recap/recap.module';
@@ -26,6 +27,7 @@ import { SyncModule } from './modules/sync/sync.module';
     SyncModule,
     LeaderboardModule,
     RecapModule,
+    HelpModule,
   ],
 })
 export class AppModule {}

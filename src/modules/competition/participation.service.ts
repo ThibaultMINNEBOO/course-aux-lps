@@ -53,11 +53,16 @@ export class ParticipationService {
     });
   }
 
-  async recordSnapshot(entry: SeasonEntry, snapshot: RankedSnapshot | null): Promise<SeasonEntry> {
-    return this.db.seasonEntry.update({
+  async recordSnapshot(entryId: string, puuid: string, snapshot: RankedSnapshot | null): Promise<boolean> {
+    const entry = await this.db.seasonEntry.findUnique({ where: { id: entryId }, include: { player: true } });
+    if (!entry?.active || entry.player.puuid !== puuid) {
+      return false;
+    }
+    await this.db.seasonEntry.update({
       where: { id: entry.id },
       data: { ...applyRankedSnapshot(entry, snapshot), lastSyncedAt: new Date() },
     });
+    return true;
   }
 
   async switchAccount(playerId: string, snapshot: RankedSnapshot | null): Promise<void> {

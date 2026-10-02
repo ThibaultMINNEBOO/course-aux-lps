@@ -28,7 +28,7 @@ export function recapAt(date: Date): Date {
 
 export function firstRecapAfter(start: Date): Date {
   const sameEvening = atRecapHour(local(start));
-  return (sameEvening.toMillis() >= start.getTime() ? sameEvening : sameEvening.plus({ days: 1 })).toJSDate();
+  return (sameEvening.toMillis() > start.getTime() ? sameEvening : sameEvening.plus({ days: 1 })).toJSDate();
 }
 
 export function computeSeasonEnd(start: Date, frequency: SeasonFrequency, customEnd?: Date): Date {

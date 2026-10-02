@@ -29,6 +29,10 @@ describe('firstRecapAfter', () => {
     expect(toParis(firstRecapAfter(paris('2026-10-05T18:00')))).toBe('2026-10-05T21:00');
   });
 
+  it('uses the next evening when started exactly at 21:00', () => {
+    expect(toParis(firstRecapAfter(paris('2026-10-05T21:00')))).toBe('2026-10-06T21:00');
+  });
+
   it('uses the next evening when started after 21:00', () => {
     expect(toParis(firstRecapAfter(paris('2026-10-05T21:30')))).toBe('2026-10-06T21:00');
   });
@@ -69,6 +73,12 @@ describe('seasonProgress', () => {
 
   it('counts the closing evening as the last day', () => {
     expect(seasonProgress(season, paris('2026-10-12T21:00'))).toEqual({ day: 8, totalDays: 8 });
+  });
+
+  it('gives a renewed weekly season seven recaps', () => {
+    const renewed = { startsAt: paris('2026-10-12T21:00'), endsAt: paris('2026-10-19T21:00') };
+    expect(seasonProgress(renewed, paris('2026-10-13T21:00'))).toEqual({ day: 1, totalDays: 7 });
+    expect(seasonProgress(renewed, paris('2026-10-19T21:00'))).toEqual({ day: 7, totalDays: 7 });
   });
 });
 

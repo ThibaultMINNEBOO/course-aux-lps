@@ -7,10 +7,131 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id        String   @id @default(cuid())
-  discordId String   @unique
-  username  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum PlayerStatus {
+  ACTIVE
+  BANNED
+  LEFT
+}
+
+enum SeasonFrequency {
+  WEEKLY
+  MONTHLY
+  CUSTOM
+}
+
+enum CompetitionStatus {
+  ACTIVE
+  ENDED
+}
+
+model Player {
+  id               String           @id @default(cuid())
+  discordId        String           @unique
+  puuid            String
+  gameName         String
+  tagLine          String
+  status           PlayerStatus     @default(ACTIVE)
+  banReason        String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  seasonEntries    SeasonEntry[]
+  sideEventEntries SideEventEntry[]
+}
+
+model Season {
+  id        String            @id @default(cuid())
+  number    Int               @unique
+  frequency SeasonFrequency
+  startsAt  DateTime
+  endsAt    DateTime
+  status    CompetitionStatus @default(ACTIVE)
+  autoRenew Boolean           @default(true)
+  createdAt DateTime          @default(now())
+  entries   SeasonEntry[]
+
+  @@index([status])
+}
+
+model SeasonEntry {
+  id                  String            @id @default(cuid())
+  seasonId            String
+  playerId            String
+  active              Boolean           @default(true)
+  removedAt           DateTime?
+  baselineLp          Int?
+  baselineWins        Int               @default(0)
+  baselineLosses      Int               @default(0)
+  currentLp           Int?
+  currentTier         String?
+  currentDivision     String?
+  currentLeaguePoints Int?
+  wins                Int               @default(0)
+  losses              Int               @default(0)
+  carriedLp           Int               @default(0)
+  carriedWins         Int               @default(0)
+  carriedLosses       Int               @default(0)
+  lastSyncedAt        DateTime?
+  createdAt           DateTime          @default(now())
+  season              Season            @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  player              Player            @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  adjustments         ScoreAdjustment[]
+  snapshots           DailySnapshot[]
+
+  @@index([seasonId, active])
+  @@index([playerId, active])
+}
+
+model DailySnapshot {
+  id            String      @id @default(cuid())
+  seasonEntryId String
+  takenAt       DateTime    @default(now())
+  score         Int
+  wins          Int
+  losses        Int
+  seasonEntry   SeasonEntry @relation(fields: [seasonEntryId], references: [id], onDelete: Cascade)
+
+  @@index([seasonEntryId, takenAt])
+}
+
+model SideEvent {
+  id          String            @id @default(cuid())
+  name        String
+  description String?
+  startsAt    DateTime          @default(now())
+  endsAt      DateTime?
+  status      CompetitionStatus @default(ACTIVE)
+  createdAt   DateTime          @default(now())
+  entries     SideEventEntry[]
+
+  @@index([status])
+}
+
+model SideEventEntry {
+  id          String            @id @default(cuid())
+  sideEventId String
+  playerId    String
+  active      Boolean           @default(true)
+  removedAt   DateTime?
+  createdAt   DateTime          @default(now())
+  sideEvent   SideEvent         @relation(fields: [sideEventId], references: [id], onDelete: Cascade)
+  player      Player            @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  adjustments ScoreAdjustment[]
+
+  @@index([sideEventId, active])
+  @@index([playerId, active])
+}
+
+model ScoreAdjustment {
+  id               String          @id @default(cuid())
+  amount           Int
+  reason           String
+  moderatorId      String
+  seasonEntryId    String?
+  sideEventEntryId String?
+  createdAt        DateTime        @default(now())
+  seasonEntry      SeasonEntry?    @relation(fields: [seasonEntryId], references: [id], onDelete: Cascade)
+  sideEventEntry   SideEventEntry? @relation(fields: [sideEventEntryId], references: [id], onDelete: Cascade)
+
+  @@index([seasonEntryId])
+  @@index([sideEventEntryId])
 }

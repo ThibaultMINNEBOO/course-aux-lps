@@ -1,6 +1,7 @@
-import { IntentPreset, SpraxiumFactory } from '@spraxium/core';
+import { SpraxiumFactory } from '@spraxium/core';
 import { EnvValidator } from '@spraxium/env';
 import { Logger } from '@spraxium/logger';
+import { GatewayIntentBits } from 'discord.js';
 import { AppEnv } from './app.env';
 import { AppModule } from './app.module';
 
@@ -11,7 +12,7 @@ async function main(): Promise<void> {
 
   app.useModule(AppModule);
   app.provide(AppEnv, environment);
-  app.intents(IntentPreset.Standard);
+  app.intents([GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers]);
 
   logger.info('Starting application...');
   await app.listen();

@@ -1,4 +1,4 @@
-import { SpraxiumException, defineExceptionLayout } from '@spraxium/core';
+import { defineExceptionLayout, SpraxiumException } from '@spraxium/core';
 import { EmbedBuilder } from 'discord.js';
 import { BRAND_COLORS } from './brand';
 

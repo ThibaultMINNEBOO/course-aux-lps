@@ -1,9 +1,10 @@
 import { Ctx, SlashCommandHandler, SlashStringOption, SlashUserOption, UseGuards } from '@spraxium/common';
 import type { ChatInputCommandInteraction, User } from 'discord.js';
+import { successEmbed } from '../../../shared/messages';
 import { MODERATOR_GUARDS } from '../../../shared/moderation';
 import { PlayerCommand } from '../commands/player.command';
-import { playerLabel, successEmbed } from '../player-messages';
 import { PlayerService } from '../player.service';
+import { playerLabel } from '../player-messages';
 
 @SlashCommandHandler(PlayerCommand, { sub: 'tag' })
 @UseGuards(...MODERATOR_GUARDS)
@@ -20,6 +21,8 @@ export class ChangeRiotIdHandler {
     const detail = accountSwitched
       ? 'Nouveau compte détecté : les LP déjà gagnés sont conservés et la progression reprend depuis le rang de ce compte.'
       : 'Même compte Riot : seul le nom affiché change.';
-    await interaction.editReply({ embeds: [successEmbed(`Riot ID mis à jour pour ${playerLabel(player)}.\n${detail}`)] });
+    await interaction.editReply({
+      embeds: [successEmbed(`Riot ID mis à jour pour ${playerLabel(player)}.\n${detail}`)],
+    });
   }
 }

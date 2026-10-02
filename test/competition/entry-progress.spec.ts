@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
-  type EntryProgress,
   applyRankedSnapshot,
   carryOver,
+  type EntryProgress,
   entryGames,
   entryScore,
 } from '../../src/modules/competition/entry-progress';

@@ -1,7 +1,7 @@
 import { Injectable } from '@spraxium/common';
 import type { Season, SeasonEntry } from '../../generated/prisma/client';
 import { DatabaseService } from '../database/database.service';
-import { type EntryProgress, type RankedSnapshot, applyRankedSnapshot, carryOver } from './entry-progress';
+import { applyRankedSnapshot, carryOver, type EntryProgress, type RankedSnapshot } from './entry-progress';
 
 const EMPTY_PROGRESS: EntryProgress = {
   baselineLp: null,

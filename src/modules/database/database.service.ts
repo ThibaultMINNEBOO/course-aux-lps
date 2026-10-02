@@ -5,7 +5,7 @@ import { PrismaClient } from '../../generated/prisma/client';
 
 @Injectable()
 export class DatabaseService extends PrismaClient implements SpraxiumOnBoot, SpraxiumOnShutdown {
-  constructor(private readonly env: AppEnv) {
+  constructor(env: AppEnv) {
     super({ adapter: new PrismaPg({ connectionString: env.databaseUrl }) });
   }
 

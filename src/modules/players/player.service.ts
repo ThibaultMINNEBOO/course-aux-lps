@@ -3,9 +3,9 @@ import type { Player, Season } from '../../generated/prisma/client';
 import { DomainException } from '../../shared/domain.exception';
 import { ParticipationService } from '../competition/participation.service';
 import { DatabaseService } from '../database/database.service';
+import type { RiotAccount } from '../riot/riot.types';
 import { RiotApiClient } from '../riot/riot-api.client';
 import { formatRiotId, parseRiotId } from '../riot/riot-id';
-import type { RiotAccount } from '../riot/riot.types';
 
 export interface RegistrationResult {
   player: Player;

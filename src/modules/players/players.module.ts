@@ -1,4 +1,4 @@
-import { Module } from '@spraxium/common';
+import { Global, Module } from '@spraxium/common';
 import { CompetitionModule } from '../competition/competition.module';
 import { DatabaseModule } from '../database/database.module';
 import { RiotModule } from '../riot/riot.module';
@@ -11,6 +11,7 @@ import { MemberLeaveListener } from './listeners/member-leave.listener';
 import { MemberReconciliationService } from './member-reconciliation.service';
 import { PlayerService } from './player.service';
 
+@Global()
 @Module({
   imports: [DatabaseModule, RiotModule, CompetitionModule],
   commands: [PlayerCommand],

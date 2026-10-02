@@ -1,10 +1,10 @@
 import { Injectable } from '@spraxium/common';
 import { Logger } from '@spraxium/logger';
 import { AppEnv } from '../../app.env';
+import { RequestThrottle, sleep } from './request-throttle';
+import type { LeagueEntry, RiotAccount } from './riot.types';
 import { RiotApiError } from './riot-api.error';
 import type { RiotId } from './riot-id';
-import type { LeagueEntry, RiotAccount } from './riot.types';
-import { RequestThrottle, sleep } from './request-throttle';
 
 const REGIONAL_HOST = 'https://europe.api.riotgames.com';
 const PLATFORM_HOST = 'https://euw1.api.riotgames.com';

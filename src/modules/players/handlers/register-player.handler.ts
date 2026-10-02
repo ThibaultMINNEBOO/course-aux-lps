@@ -1,9 +1,10 @@
 import { Ctx, SlashCommandHandler, SlashStringOption, SlashUserOption, UseGuards } from '@spraxium/common';
 import type { ChatInputCommandInteraction, User } from 'discord.js';
+import { successEmbed } from '../../../shared/messages';
 import { MODERATOR_GUARDS } from '../../../shared/moderation';
 import { PlayerCommand } from '../commands/player.command';
-import { enrollmentLine, playerLabel, successEmbed } from '../player-messages';
 import { PlayerService } from '../player.service';
+import { enrollmentLine, playerLabel } from '../player-messages';
 
 @SlashCommandHandler(PlayerCommand, { sub: 'inscrire' })
 @UseGuards(...MODERATOR_GUARDS)
